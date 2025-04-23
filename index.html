@@ -36,58 +36,7 @@
       margin-top: 5px;
     }
 
-    section.hero {
-      text-align: center;
-      padding: 50px 20px;
-      background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/45/African_pattern.svg');
-      background-size: cover;
-      background-position: center;
-      background-blend-mode: overlay;
-      background-color: rgba(255, 255, 255, 0.9);
-    }
-
-    section.hero h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-
-    section.hero p {
-      font-size: 1.1rem;
-      color: #555;
-    }
-  .services {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 40px 20px;
-    text-align: center;
-  }
-
-  .service {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    border: 3px solid #1e293b;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-  }
-
-  .service:hover {
-    box-shadow: 0 0 20px rgba(96, 165, 250, 0.6);
-    transform: translateY(-5px);
-  }
-
-  .service h3 {
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-    color: #1e293b;
-  }
-
-  .service p {
-    font-size: 1rem;
-    color: #555;
-  }
-    .upload-section, .payment-section, .testimonials, .faq, .translator-signup {
+    .upload-section {
       padding: 30px 20px;
       text-align: center;
       background-color: #f0fdf4;
@@ -107,29 +56,11 @@
       cursor: pointer;
     }
 
-    .testimonial, .faq-item {
-      margin-bottom: 15px;
-    }
-
-    .translator-signup form input {
-      display: block;
-      margin: 10px auto;
+    pre {
+      background-color: #f3f4f6;
       padding: 10px;
-      width: 90%;
-      max-width: 400px;
-    }
-
-    .footer {
-      background-color: #1e293b;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-    }
-
-    .footer p {
-      margin: 5px 0;
-      font-size: 0.9rem;
+      border-radius: 5px;
+      text-align: left;
     }
   </style>
 </head>
@@ -140,66 +71,36 @@
     <p>Connecting African Languages to the World</p>
   </header>
 
-  <section class="hero">
-    <h2>Translation & Transcription Services</h2>
-    <p>Instant, Affordable, and Rooted in African Language Excellence</p>
-  </section>
-  <!-- Add this section after the "hero" section -->
-<section class="services">
-    <div class="service">
-      <h3>Document Translation</h3>
-      <p>Translate any document into or from African languages. R80–R200 per document.</p>
-    </div>
-    <div class="service">
-      <h3>Audio Transcription</h3>
-      <p>Upload your audio for AI-assisted transcription. R5–R10 per minute.</p>
-    </div>
-    <div class="service">
-      <h3>Certified Translation</h3>
-      <p>Get official certified translations through our freelance experts.</p>
-    </div>
-  </section>
-
   <section class="upload-section">
-    <h2>Upload Your Files</h2>
-    <p>Upload your documents for translation or transcription.</p>
-    <input type="file" />
-    <input type="submit" value="Upload" />
-  </section>
+    <h2>Upload Your File</h2>
 
-  <section class="payment-section">
-    <h2>Secure Payments</h2>
-    <p>Pay securely for our services using trusted payment methods.</p>
-  </section>
-
-  <section class="testimonials">
-    <h2>What Our Clients Say</h2>
-    <div class="testimonial">
-      <p>"AfriTongue provided excellent service!"</p>
-      <p>- Happy Client</p>
-    </div>
-  </section>
-
-  <section class="faq">
-    <h2>Frequently Asked Questions</h2>
-    <div class="faq-item">
-      <p><strong>Q:</strong> How long does a translation take?</p>
-      <p><strong>A:</strong> It depends on the document size, but we aim for quick turnarounds.</p>
-    </div>
-  </section>
-
-  <section class="translator-signup">
-    <h2>Join Our Team</h2>
-    <p>Sign up to become a translator with AfriTongue.</p>
-    <form>
-      <input type="text" placeholder="Your Name" />
-      <input type="email" placeholder="Your Email" />
-      <input type="submit" value="Sign Up" />
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input type="file" name="file" accept=".wav,.mp3,.m4a,.mp4" required />
+      <input type="submit" value="Submit for Processing" />
     </form>
+
+    <pre id="result" style="white-space:pre-wrap;"></pre>
   </section>
 
-  <footer class="footer">
-    <p>&copy; 2025 AfriTongue by Ubuntu. All rights reserved.</p>
-  </footer>
+  <script>
+    const BACKEND = "http://127.0.0.1:8080";  // Change this to your deployed backend URL after deployment
+
+    document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+
+      try {
+        const res = await fetch(`${BACKEND}/upload`, {
+          method: "POST",
+          body: fd,
+        });
+
+        const data = await res.json();
+        document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById("result").textContent = "Error: Unable to connect to the backend.";
+      }
+    });
+  </script>
 </body>
 </html>
