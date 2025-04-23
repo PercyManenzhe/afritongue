@@ -1,67 +1,48 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 import os
-import werkzeug
 
+# Initialize the Flask application
 app = Flask(__name__)
-CORS(app)
 
-# Config
-UPLOAD_FOLDER = './uploads'
-ALLOWED_EXTENSIONS = {'wav', 'mp3', 'm4a', 'mp4'}
-MAX_CONTENT_LENGTH = 50 * 1024 * 1024  # 50MB
-
+# Configure the upload folder
+UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
 
+# Ensure the upload folder exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/')
 def home():
-    return "AfriTongue Backend is Running"
+    return "Welcome to the AfriTongue API! Use the /upload endpoint to upload files."
 
-# === WHISPER INTEGRATION ===
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file uploaded'}), 400
+    """
+    Endpoint to handle file uploads.
+    """
+    if request.method == 'GET':
+        # Display an HTML form for file upload
+        return '''
+        <h1>Upload a File</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="document">
+            <input type="submit" value="Upload">
+        </form>
+        '''
+    elif request.method == 'POST':
+        # Handle file upload
+        if 'document' not in request.files:
+            return jsonify({'error': 'No file part'}), 400
 
-    file = request.files['file']
+        file = request.files['document']
+        if file.filename == '':
+            return jsonify({'error': 'No selected file'}), 400
 
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        file.save(file_path)
 
-    if file and allowed_file(file.filename):
-        filename = werkzeug.utils.secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
+        return jsonify({'message': 'File uploaded', 'filename': file.filename}), 200
 
-        # Placeholder: Whisper API transcription
-        transcription = "Transcription will be generated here by Whisper."
-
-        return jsonify({
-            'message': f'File {filename} uploaded successfully',
-            'transcription': transcription
-        })
-
-    return jsonify({'error': 'File type not allowed'}), 400
-
-# === TRANSLATOR DB ===
-@app.route('/apply', methods=['POST'])
-def apply_translator():
-    data = request.get_json()
-    print("Translator Application Received:", data)
-    return jsonify({'message': 'Application received successfully'})
-
-# === PAYSTACK ===
-@app.route('/pay', methods=['POST'])
-def pay():
-    data = request.get_json()
-    print("Initiate Payment:", data)
-    return jsonify({'message': 'Payment initiated (mock)'})
-
-if __name__ == '__main__':
+if __name__ == "__main__":
+    print("Starting Flask app...")
     app.run(debug=True, port=8080)
