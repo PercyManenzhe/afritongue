@@ -1,8 +1,27 @@
 from flask import Flask, request, jsonify
 import os
+# at top
+import sqlite3
 
 # Initialize the Flask application
 app = Flask(__name__)
+
+DB = 'translators.db'
+
+def init_db():
+    with sqlite3.connect(DB) as conn:
+        conn.execute("""CREATE TABLE IF NOT EXISTS translators
+                        (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                         name TEXT, email TEXT, languages TEXT)""")
+init_db()
+
+@app.route('/apply', methods=['POST'])
+def apply_translator():
+    data = request.get_json()
+    with sqlite3.connect(DB) as conn:
+        conn.execute("INSERT INTO translators(name,email,languages) VALUES (?,?,?)",
+                     (data['name'], data['email'], data['languages']))
+    return jsonify({'message': 'Application stored'}), 201
 
 # Configure the upload folder
 UPLOAD_FOLDER = 'uploads'
