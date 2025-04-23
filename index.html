@@ -1,110 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AfriTongue by Ubuntu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #fcd34d, #f472b6, #60a5fa);
+      color: #333;
+    }
+
+    .rainbow-stripe {
+      height: 10px;
+      background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+    }
+
+    header {
+      background-color: #1e293b;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    header p {
+      font-style: italic;
+      margin-top: 5px;
+    }
+
+    section.hero {
+      text-align: center;
+      padding: 50px 20px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/45/African_pattern.svg');
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: overlay;
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    section.hero h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    section.hero p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .upload-section, .payment-section, .testimonials, .faq, .translator-signup {
+      padding: 30px 20px;
+      text-align: center;
+      background-color: #f0fdf4;
+      margin-top: 20px;
+    }
+
+    input[type="file"], input[type="submit"] {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+
+    input[type="submit"] {
+      background-color: #1e293b;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .testimonial, .faq-item {
+      margin-bottom: 15px;
+    }
+
+    .translator-signup form input {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .footer {
+      background-color: #1e293b;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .footer p {
+      margin: 5px 0;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
 <body>
-    <div class="rainbow-stripe"></div>
-    <header>
-            <style>
-              body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                background: linear-gradient(to bottom right, #fcd34d, #f472b6, #60a5fa);
-                color: #333;
-              }
-          
-              .rainbow-stripe {
-                height: 10px;
-                background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-              }
-          
-              header {
-                background-color: #1e293b;
-                color: #fff;
-                padding: 20px;
-                text-align: center;
-              }
-          
-              section {
-                padding: 20px;
-                margin: 10px;
-                border: 2px solid #1e293b;
-                border-radius: 10px;
-                background-color: #f0fdf4;
-              }
-          
-              input[type="file"], input[type="submit"] {
-                padding: 10px;
-                margin: 10px 0;
-                border-radius: 5px;
-              }
-          
-              input[type="submit"] {
-                background-color: #1e293b;
-                color: #fff;
-                border: none;
-                cursor: pointer;
-              }
-          
-            footer {
-              background-color: #1e293b;
-              color: #fff;
-              text-align: center;
-              padding: 10px;
-            }
-          </style>
-      <div class="logo">
-          <img src="logo.png" alt="AfriTongue Logo" />
-      </div>
-      <div class="tagline">
-          <p>Connecting African Languages to the World</p>
-      </div>
+  <div class="rainbow-stripe"></div>
+  <header>
     <h1>AfriTongue by Ubuntu</h1>
     <p>Connecting African Languages to the World</p>
-    </header>
-  
-    <section class="hero">
-      <h2>Translation & Transcription Services</h2>
-      <p>Instant, Affordable, and Rooted in African Language Excellence</p>
-    </section>
-  
-    <!-- Add the missing sections -->
-    <section class="upload-section">
-      <h2>Upload Your Files</h2>
-      <p>Upload your documents for translation or transcription.</p>
-      <input type="file" />
-      <input type="submit" value="Upload" />
-    </section>
-  
-    <section class="payment-section">
-      <h2>Secure Payments</h2>
-      <p>Pay securely for our services using trusted payment methods.</p>
-    </section>
-  
-    <section class="testimonials">
-      <h2>What Our Clients Say</h2>
-      <div class="testimonial">
-        <p>"AfriTongue provided excellent service!"</p>
-        <p>- Happy Client</p>
-      </div>
-    </section>
-  
-    <section class="faq">
-      <h2>Frequently Asked Questions</h2>
-      <div class="faq-item">
-        <p><strong>Q:</strong> How long does a translation take?</p>
-        <p><strong>A:</strong> It depends on the document size, but we aim for quick turnarounds.</p>
-      </div>
-    </section>
-  
-    <section class="translator-signup">
-      <h2>Join Our Team</h2>
-      <p>Sign up to become a translator with AfriTongue.</p>
-      <form>
-        <input type="text" placeholder="Your Name" />
-        <input type="email" placeholder="Your Email" />
-        <input type="submit" value="Sign Up" />
-      </form>
-    </section>
-  
-    <footer class="footer">
-      <p>&copy; 2025 AfriTongue by Ubuntu. All rights reserved.</p>
-    </footer>
-  </body>
+  </header>
+
+  <section class="hero">
+    <h2>Translation & Transcription Services</h2>
+    <p>Instant, Affordable, and Rooted in African Language Excellence</p>
+  </section>
+
+  <section class="upload-section">
+    <h2>Upload Your Files</h2>
+    <p>Upload your documents for translation or transcription.</p>
+    <input type="file" />
+    <input type="submit" value="Upload" />
+  </section>
+
+  <section class="payment-section">
+    <h2>Secure Payments</h2>
+    <p>Pay securely for our services using trusted payment methods.</p>
+  </section>
+
+  <section class="testimonials">
+    <h2>What Our Clients Say</h2>
+    <div class="testimonial">
+      <p>"AfriTongue provided excellent service!"</p>
+      <p>- Happy Client</p>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <p><strong>Q:</strong> How long does a translation take?</p>
+      <p><strong>A:</strong> It depends on the document size, but we aim for quick turnarounds.</p>
+    </div>
+  </section>
+
+  <section class="translator-signup">
+    <h2>Join Our Team</h2>
+    <p>Sign up to become a translator with AfriTongue.</p>
+    <form>
+      <input type="text" placeholder="Your Name" />
+      <input type="email" placeholder="Your Email" />
+      <input type="submit" value="Sign Up" />
+    </form>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 AfriTongue by Ubuntu. All rights reserved.</p>
+  </footer>
+</body>
+</html>
